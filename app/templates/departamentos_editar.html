@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block titulo_pagina %}
+    <h2 class="titulo_pagina">Departamentos - {{ acao }}</h2>
+{% endblock %}
+
+{% block conteudo %}
+
+{% if acao == 'Exclusão' %}
+    <p>Deseja realmente excluir este registro?</p>
+    <br>
+    <p>
+        Nome: <strong>{{ reg.nome }}</strong>
+    </p>
+    <br>
+    <form action="/departamentos/salvar/" method="post">
+        {% csrf_token %}
+        <input id="acao" name="acao" type="hidden" value="{{ acao }}">
+        
+        <input type="hidden" id="id" name="id" value="{{reg.id}}">
+
+        <input class="btn-del" type="submit" value="Excluir">
+
+        <a class="btn-def" href="{% url 'departamentos_listar' %}">Cancelar</a>
+        
+    </form>
+    
+    
+{% else %}
+    <form action="/departamentos/salvar/" method="post">
+        {% csrf_token %}
+        
+        <!-- CAMPOS DEFINIDOS NO FORMULARIO -->
+        {{ form.as_p}}
+        
+        <!-- CAMPO ESCONDIDO DE ACAO  -->
+        <input id="acao" name="acao" type="hidden" value="{{ acao }}">
+        
+        <!-- BOTOES DE SALVAR E CANCELAR -->
+        <label for=""></label>
+        <button class="btn" type="submit">Salvar</button>
+        &nbsp;
+        <a class="btn-def" href="{% url 'departamentos_listar' %}">Cancelar</a>        
+
+    </form>
+{% endif%}
+
+{% endblock %}

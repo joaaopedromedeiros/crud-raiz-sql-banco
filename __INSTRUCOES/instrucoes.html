@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>INSTRUÇÕES</title>
+    <link rel="stylesheet" href="assets/css/estilo.css">
+</head>
+<body>
+<main>
+<h1>Instruções deste Projeto</h1>
+
+<!-- ========================================================= -->
+<hr>
+<h2>1) Preparação do Ambiente de Desenvolvimento</h2>
+
+<p>
+Abra o terminal de comandos (prompt) e execute o comando a seguir para listar os pacotes do Python que estão instalados no seu computador:
+<br>
+<code class="terminal">pip list</code>
+</p>
+
+<p>
+Para esta aula precisaremos que os pacotes <code>Django</code> e <code>pyodbc</code> estejam instalados.
+<br>
+Caso algum deles não esteja instalado, execute os comandos a seguir:
+</p>
+<pre>
+<code class="terminal">
+pip install Django
+</code>
+</pre>
+<pre>
+<code class="terminal">
+pip install pyodbc
+</code>
+</pre>
+
+<!-- ========================================================= -->
+<hr>
+<h2>2) Criando o Banco de Dados</h2>
+
+<p>
+    Abra o <i>MSSQL Management Studio</i> e crie um banco de dados chamado <code>[SUA_MATRICULA]</code> (use sua matrícula do IFRN).
+    <br>
+    <strong>OBS</strong>: Caso o banco de dados <code>[SUA_MATRICULA]</code> já exista no seu computador, <i>exclua-o</i> e <i>crie-o</i> novamente antes de continuar. Isto é importante para não haja coflito com tabelas já existentes.
+</p>
+
+<p>
+    Em seguida, crie as tabelas conforme o DER a seguir:
+</p>
+<img src="assets/imagens/2-der.png" width="600">
+
+<p>
+    Neste primeiro exercício, iremos disponibilizar os comandos SQL de criação das tabelas.
+    <br>
+    Nos próximos exercícios, você mesmo terá criar os comandos SQL.
+</p>
+<pre>
+<code class="sql">
+DROP TABLE IF EXISTS Funcionario;
+DROP TABLE IF EXISTS Departamento;
+
+CREATE TABLE Departamento(
+    id int identity(1,1) not null,
+    nome varchar(30) not null,
+    nome_diretor varchar(90),
+    ramal int,
+    primary key(id)
+);
+
+CREATE TABLE Funcionario(
+    id int identity(1,1) not null,
+    nome varchar(90) not null,
+    telefones varchar(20),
+    idade int,
+    data_nascimento date,
+    endereco varchar(200),
+    departamento_id int not null,
+    primary key(id),
+    FOREIGN KEY(departamento_id) REFERENCES Departamento(id)
+);
+</code>
+</pre>
+
+<p>
+    Neste primeiro exercício, iremos também disponibilizar os comandos SQL para inclusão dos registros nas tabelas.
+<br>
+Inclusão de registros na tabela <strong>Departamento</strong>:
+</p>
+<pre>
+<code class="sql">
+INSERT INTO Departamento(nome, nome_diretor, ramal) VALUES ('RH', 'José da Silva', 3001)
+INSERT INTO Departamento(nome, nome_diretor, ramal) VALUES ('Financeiro', 'Maria José', 3022)
+INSERT INTO Departamento(nome, nome_diretor, ramal) VALUES ('Compras', 'João', 3311)
+</code>
+</pre>
+
+<p>
+Inclusão de registros na tabela <strong>Funcionario</strong>:
+</p>
+<pre>
+<code class="sql">
+INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
+	VALUES ('José da Silva', '3211-1221', 17, '19920325', 'Rua São José, 1221', 1)
+
+INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
+	VALUES ('Maria Mariana', null, 16, '19910301', 'Av. Hermes da Fonseca, 121', 1)
+    
+INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
+	VALUES ('Marcos Silva', null, null, null, null, 1)
+
+INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
+	VALUES ('Ivan Justo', '3211-8877', 17, '20020825', 'Rua São João, 21', 2)
+
+INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
+	VALUES ('Cibele da Silva', null, 16, '19991225', 'Av. Hermes da Fonseca, 121', 2)
+
+INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
+	VALUES ('Lúcia Gomes', null, null, null, null, 2)</code>
+</pre>
+
+<p>
+    <strong>Pronto!</strong> Agora temos as tabelas criadas e os registros inseridos.
+</p>
+
+
+<!-- ========================================================= -->
+<hr>
+<h2>3) Estrutura Geral das Views</h2>
+
+<h3>Arquivo <code>views_EM_BRANCO.py</code></h3>
+<p>
+Contém o código <strong>base</strong> para ser utilizado para construirmos as <strong>Views</strong> da nossa aplicação.
+</p>
+<div class="top-align"">
+    <img src="assets/imagens/3-views-1.png" width="560">
+    <img src="assets/imagens/3-views-2.png" width="650">
+    <img src="assets/imagens/3-views-2-2.png" width="750">
+    <img src="assets/imagens/3-views-2-3.png" width="600">
+
+</div>
+
+
+
+<h3>Arquivo <code>views_departamentos.py</code></h3>
+<p>
+</p>
+<div class="top-align"">
+    <img src="assets/imagens/3-views-3.png" width="600">
+    <img src="assets/imagens/3-views-4.png" width="730">
+</div>
+
+
+<h3>Arquivo <code>views_funcionarios.py</code></h3>
+<p>
+</p>
+<div class="top-align"">
+    <img src="assets/imagens/3-views-5.png" width="670">
+    <img src="assets/imagens/3-views-6.png" width="710">
+</div>
+
+
+
+
+<!-- ========================================================= -->
+<hr>
+<h2>4) Páginas CRUD de Departamentos</h2>
+
+<p><strong>Página de Listagem:</strong></p>
+<img src="assets/imagens/4-paginas-5.png" width="800">
+<p><strong>Página de Inclusão:</strong></p>
+<img src="assets/imagens/4-paginas-6.png" width="700">
+<p><strong>Página de Alteração:</strong></p>
+<img src="assets/imagens/4-paginas-7.png" width="700">
+<p><strong>Página de Exclusão:</strong></p>
+<img src="assets/imagens/4-paginas-8.png" width="700">
+
+<!-- ========================================================= -->
+<hr>
+<h2>5) Páginas CRUD de Funcionários</h2>
+
+<p><strong>Página de Listagem:</strong></p>
+<img src="assets/imagens/4-paginas-1.png" width="900">
+<p><strong>Página de Inclusão:</strong></p>
+<img src="assets/imagens/4-paginas-4.png" width="800">
+<p><strong>Página de Alteração:</strong></p>
+<img src="assets/imagens/4-paginas-2.png" width="800">
+<p><strong>Página de Exclusão:</strong></p>
+<img src="assets/imagens/4-paginas-3.png" width="800">
+
+
+<!-- ============================================================== -->
+<hr>
+<p>
+<h2>Exercício:</h2>
+</p>
+<img src="assets/imagens/7-exerc2-1.png" width="800" >
+<div class="instrucao">
+<p>
+Você deverá:
+<ol>
+    <li>Criar os códigos <i>SQL</i> para criar as tabelas e inserir os registros usando o <i>MSSQL Management Studio</i>;</li>
+        <ul>
+            <li>Crie as tabelas dentro  do banco de dados <code>[SUA_MATRICULA]</code>;</li>
+            <li>Inserir 2 turmas com 5 alunos cada;</li>
+        </ul>
+    <li>Criar as páginas CRUD para as duas tabelas, conforme explicado anteriormente;</li>
+        <ul>
+            <li>Ao final, a sua aplicação deverá permitir <i>listar</i>, <i>incluir</i>, <i>alterar</i> e <i>excluir</i> os registros de <strong>Turma</strong> e <strong>Aluno</strong>.</li>
+        </ul>
+</ol>  
+</p>
+</div>

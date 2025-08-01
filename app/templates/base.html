@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Aulas BD</title>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <link rel="stylesheet" href="{% static 'css/botoes.css' %}">
+</head>
+<body>
+    <!-- CABECALHO DA PAGINA -->
+    <a id="a_header" href="/">
+    <header>
+        <span class="titulo">Aulas BD</span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="versao">v3 - CRUD</span>
+    </header>
+    </a>
+
+    <!-- MENU LATERAL DE NAVEGACAO -->
+    <nav>
+        <ul>
+            <li>  <a href="{% url 'home' %}">Home</a>  </li>
+            <li>  <a href="{% url 'departamentos_listar' %}">Departamentos</a> </li>
+            <li>  <a href="{% url 'funcionarios_listar' %}">Funcionários</a> </li>
+        </ul>
+    </nav>
+    <!-- CONTEUDO DAS PAGINAS -->
+    <main>
+        <!-- Este bloco será utilizado para exiir o título da página -->
+        <div id="titulo_pagina">
+            {% block titulo_pagina %}
+                Título da Página
+            {% endblock %}            
+        </div>
+        <!-- Exibe mensagem de ERRO, caso tenha ocorrido algum -->
+        {% if ERRO %}
+            <h3 class="erro">ERRO: {{ERRO}}</h3>
+        {% endif %}            
+        <!-- Este bloco será utilizado para inserir o conteúdo das páginas. -->
+        <div id="conteudo">
+            {% block conteudo %}
+                Conteúdo da Página
+            {% endblock %}
+        </div>
+    </main>
+</body>
+
+
+
+
