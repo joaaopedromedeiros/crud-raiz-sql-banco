@@ -56,5 +56,13 @@ urlpatterns = [
     # ===========================================================================
     # Rotas: Alunos
     path('alunos/', views_alunos.VIEW_CRUD.listar, name='alunos_listar'),
+    path('alunos/<str:acao>/<int:id>', views_alunos.VIEW_CRUD.editar, name='alunos_editar'),
+    path('alunos/salvar/', views_alunos.VIEW_CRUD.salvar, name='alunos_salvar'),
+
+    # Rotas: Alunos
+    path('turmas/', views_turmas.VIEW_CRUD.listar, name='turmas_listar'),
+    path('turmas/<str:acao>/<int:id>', views_turmas.VIEW_CRUD.editar, name='turmas_editar'),
+    path('turmas/salvar/', views_turmas.VIEW_CRUD.salvar, name='turmas_salvar'),
+
 
 ] 

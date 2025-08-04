@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block titulo_pagina %}
-    <h2 class="titulo_pagina">Funcionários</h2>
+    <h2 class="titulo_pagina">Turmas</h2>
 {% endblock %}  
 
 {% block conteudo %}
 
     <div style="margin-left: 5px;">
-        <a class="btn medium" href="{% url 'funcionarios_editar' acao='incluir' id=0 %}">Incluir</a>
+        <a class="btn medium" href="{% url 'turmas_editar' acao='incluir' id=0 %}">Incluir</a>
     </div>
 
     <!-- TABELA HTML COM OS REGISTROS -->
@@ -31,9 +31,9 @@
                 <td>{{ reg.1 }}</td>
                 <td>{{ reg.2|default_if_none:'' }}</td>
                 <td>
-                    <a class="btn small" href="#">Alterar</a>
+                    <a class="btn small" href="{% url 'turmas_editar' acao='alterar' id=reg.id %}">Alterar</a>
                     
-                    <a class="btn-del small" href="#">Excluir</a>
+                    <a class="btn-del small" href="{% url 'turmas_editar' acao='excluir' id=reg.id %}">Excluir</a>
                 </td>
             </tr>
             {% endfor %}
