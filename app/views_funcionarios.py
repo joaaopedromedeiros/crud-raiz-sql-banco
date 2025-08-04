@@ -17,7 +17,7 @@ SQL_SELECT_GERAL = """
             fun.nome,
             fun.telefones,
             fun.idade,
-            fun.dataNascimento,
+            fun.data_nascimento,
             fun.endereco,
             fun.departamento_id,
             dep.nome as departamento_nome
@@ -46,7 +46,7 @@ SQL_EXCLUSAO = """
 
 # Comando SQL para incluir um registro
 SQL_INCLUSAO = """ 
-    INSERT INTO Funcionario(nome, telefones, idade, dataNascimento, endereco, departamento_id) 
+    INSERT INTO Funcionario(nome, telefones, idade, data_nascimento, endereco, departamento_id) 
     VALUES('{}', '{}', {}, '{}', '{}', {})
 """
 
@@ -57,7 +57,7 @@ SQL_ALTERACAO = """
     SET nome = '{}',
         telefones = '{}', 
         idade = {}, 
-        dataNascimento = '{}', 
+        data_nascimento = '{}', 
         endereco = '{}', 
         departamento_id = {} 
     WHERE id = {}
